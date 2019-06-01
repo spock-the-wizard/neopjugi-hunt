@@ -1,0 +1,8 @@
+diff a/neopjugi-hunt/Library/shadercompiler-UnityShaderCompiler.exe0.log b/neopjugi-hunt/Library/shadercompiler-UnityShaderCompiler.exe0.log	(rejected hunks)
+@@ -2,5 +2,6 @@
+ <<<<<<< HEAD
+ Base path: C:/Program Files/Unity/Editor/Data
++=======
+ Base path: 'C:/Program Files/Unity/Hub/Editor/2019.3.0a2/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2019.3.0a2/Editor/Data/PlaybackEngines'
+ >>>>>>> 2dfb516376b40348efdd26106a1b118696525896
+ Cmd: initializeCompiler
