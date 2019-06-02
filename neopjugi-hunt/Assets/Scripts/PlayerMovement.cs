@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,10 +14,16 @@ public class PlayerMovement : MonoBehaviour
     public float x = 0.0f;
     public float y = 0.0f;
     public float dist = -4.0f;
+
+    private bool attack;
     private bool jump;
+    private bool sprint;
+    private bool idle;
+    private bool endgame;
+
     public Camera main;
 
-    //Animator m_Animator;
+    Animator m_Animator;
     Rigidbody m_Rigidbody;
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
@@ -30,18 +36,50 @@ public class PlayerMovement : MonoBehaviour
         return Mathf.Clamp(angle, min, max);
     }
 
-    void Start ()
+    void Start()
     {
-        //m_Animator = GetComponent<Animator> ();
-        m_Rigidbody = GetComponent<Rigidbody> ();
+        m_Animator = GetComponent<Animator> ();
+        m_Rigidbody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
+        endgame = false;
+
     }
 
     void Update()
     {
+        jump = false;
+        sprint = false;
+        idle = false;
+
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            attack = true;
+        else
+        {
+            attack = false;
+            if (Input.GetButton("Jump"))
+                jump = true;
+            else
+            {
+                jump = false;
+                if (Input.GetKeyDown("w"))
+                    sprint = true;
+                else
+                {
+                    sprint = false;
+                    idle = true;
+                }
+            }
+        }
+
+        m_Animator.SetBool("attack", attack);
+        m_Animator.SetBool("idle", idle);
+        m_Animator.SetBool("fly", jump);
+        m_Animator.SetBool("run", sprint);
+        m_Animator.SetBool("endgame", endgame);
+
         View();
         Fly();
         Move();
@@ -57,14 +95,15 @@ public class PlayerMovement : MonoBehaviour
     }
     void Move()
     {
+
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
         x += Input.GetAxis("Mouse X") * xSpeed * 0.015f;
         y -= Input.GetAxis("Mouse Y") * ySpeed * 0.015f;
         y = ClampAngle(y, yMinLimit, yMaxLimit);
 
         Quaternion rotation = Quaternion.Euler(0, x, 0);
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
 
         m_Movement.Set(horizontal, 0f, vertical);
         m_Movement = rotation * m_Movement;
@@ -80,19 +119,20 @@ public class PlayerMovement : MonoBehaviour
         m_Rigidbody.MovePosition(m_Rigidbody.position + m_Movement * speed);
         m_Rigidbody.MoveRotation(m_Rotation);
 
-        if (m_Rigidbody.position.x > 40.0f)
+        float field_boundary = 40.0f;
+        if (m_Rigidbody.position.x > field_boundary)
         {
             m_Rigidbody.position = new Vector3(40.0f, m_Rigidbody.position.y, m_Rigidbody.position.z);
         }
-        if (m_Rigidbody.position.x < -40.0f)
+        if (m_Rigidbody.position.x < -field_boundary)
         {
             m_Rigidbody.position = new Vector3(-40.0f, m_Rigidbody.position.y, m_Rigidbody.position.z);
         }
-        if (m_Rigidbody.position.z > 40.0f)
+        if (m_Rigidbody.position.z > field_boundary)
         {
             m_Rigidbody.position = new Vector3(m_Rigidbody.position.x, m_Rigidbody.position.y, 40.0f);
         }
-        if (m_Rigidbody.position.z < -40.0f)
+        if (m_Rigidbody.position.z < -field_boundary)
         {
             m_Rigidbody.position = new Vector3(m_Rigidbody.position.x, m_Rigidbody.position.y, -40.0f);
         }
@@ -114,10 +154,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Fly()
     {
-        if (Input.GetButton("Jump"))
-        {
-            jump = true;
-        }
+       
         if (jump)
         {
             if (m_Rigidbody.GetPointVelocity(new Vector3(0, 0, 0)).y < 3.0f)
@@ -130,5 +167,5 @@ public class PlayerMovement : MonoBehaviour
                 m_Rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
     }
-    
+
 }
