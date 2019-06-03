@@ -686,12 +686,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 49126656}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &49126658 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2490975392907989004, guid: 384dfd85831846541b02537a7908dca7,
-    type: 3}
-  m_PrefabInstance: {fileID: 49126656}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &49126659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4599,7 +4593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400038, guid: 9e03f0a38ae24de40910d010384a7cb5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4
+      value: 3.38
       objectReference: {fileID: 0}
     - target: {fileID: 400038, guid: 9e03f0a38ae24de40910d010384a7cb5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4665,22 +4659,8 @@ MonoBehaviour:
   x: 0
   y: 0
   dist: -4
+  viewtarget: {x: 0, y: 0, z: 0}
   main: {fileID: 0}
---- !u!114 &467227952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 467227950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3736bbe9a5a11244ca5f79cf3a750f66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullet: {fileID: 3677324512110641994, guid: a5d6634362d4c4c4c829e4529a2018aa, type: 3}
-  Ulti: {fileID: 0}
-  Firepos: {fileID: 49126658}
 --- !u!54 &467227953
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14836,7 +14816,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361796834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 1.09, z: 0.72}
+  m_LocalPosition: {x: 0.003, y: 2.81, z: 0.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 467227955}
@@ -14979,7 +14959,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 2
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -15478,7 +15458,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1.58
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -16942,7 +16922,7 @@ ParticleSystem:
         m_RotationOrder: 4
     inWorldSpace: 0
   InheritVelocityModule:
-    enabled: 1
+    enabled: 0
     m_Mode: 0
     m_Curve:
       serializedVersion: 2
@@ -19605,7 +19585,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 8
     m_NumAlphaKeys: 2
-  splatDecalTool: {fileID: 1371841238}
+  splatDecalPool: {fileID: 1371841238}
+  character: {fileID: 467227951}
 --- !u!4 &1364122251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9,
@@ -19704,9 +19685,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498e5e13573f7ef42b2e65cfa29578bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDecals: 38
   decalSizeMin: 0.5
   decalSizeMax: 1.5
-  maxDecals: 10
 --- !u!199 &1371841239
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -19842,7 +19823,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

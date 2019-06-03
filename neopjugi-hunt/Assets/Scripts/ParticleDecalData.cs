@@ -8,4 +8,5 @@ public class ParticleDecalData
     public float size;
     public Vector3 rotation;
     public Color color;
+
 }

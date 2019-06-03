@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float x = 0.0f;
     public float y = 0.0f;
     public float dist = -4.0f;
+    public Vector3 viewtarget;
     private bool jump;
     public Camera main;
 
@@ -150,6 +151,8 @@ public class PlayerMovement : MonoBehaviour
     void Cam()
     {
         Quaternion rot = Quaternion.Euler(y, x, 0);
+        viewtarget = m_Rigidbody.position + rot * new Vector3(0.0f, 3.0f, 2.0f);
+
         Camera.main.transform.position = m_Rigidbody.position + rot * new Vector3(0.0f, 3.0f, dist);
         Camera.main.transform.rotation = rot;
     }
