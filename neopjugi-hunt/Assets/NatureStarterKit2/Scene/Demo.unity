@@ -4514,7 +4514,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100038, guid: 9e03f0a38ae24de40910d010384a7cb5, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 9e03f0a38ae24de40910d010384a7cb5,
         type: 3}
@@ -4615,6 +4615,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 400038, guid: 9e03f0a38ae24de40910d010384a7cb5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 9e03f0a38ae24de40910d010384a7cb5, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -4661,6 +4665,8 @@ MonoBehaviour:
   dist: -4
   viewtarget: {x: 0, y: 0, z: 0}
   main: {fileID: 0}
+  fireball: {fileID: 4065177328244977819, guid: d5733ff0f0fd0544a838176c61ff4228,
+    type: 3}
 --- !u!54 &467227953
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7066,7 +7072,7 @@ Terrain:
   m_GameObject: {fileID: 703152999}
   m_Enabled: 1
   serializedVersion: 4
-  m_TerrainData: {fileID: 15600000, guid: c6cd5df0945c5954187416f554551e7e, type: 2}
+  m_TerrainData: {fileID: 0}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -7852,10 +7858,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: bush03 (81)
       objectReference: {fileID: 0}
-    - target: {fileID: 193742, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.8
@@ -7889,16 +7891,16 @@ PrefabInstance:
       value: 61
       objectReference: {fileID: 0}
     - target: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.6996875
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.6996878
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.6996877
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
@@ -12846,10 +12848,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: tree01 (8)
       objectReference: {fileID: 0}
-    - target: {fileID: 136824, guid: 393b236c42954a640b513d46de90ac38, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 418198, guid: 393b236c42954a640b513d46de90ac38, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23.35
@@ -12883,16 +12881,16 @@ PrefabInstance:
       value: 185
       objectReference: {fileID: 0}
     - target: {fileID: 418198, guid: 393b236c42954a640b513d46de90ac38, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3.7706742
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418198, guid: 393b236c42954a640b513d46de90ac38, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.6621494
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 418198, guid: 393b236c42954a640b513d46de90ac38, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4.6621494
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 393b236c42954a640b513d46de90ac38, type: 3}
@@ -14892,7 +14890,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361796834}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 0.47
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14959,7 +14957,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 2
+  scalingMode: 1
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -15458,7 +15456,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.58
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -16923,7 +16921,7 @@ ParticleSystem:
     inWorldSpace: 0
   InheritVelocityModule:
     enabled: 0
-    m_Mode: 0
+    m_Mode: 1
     m_Curve:
       serializedVersion: 2
       minMaxState: 0
@@ -19685,7 +19683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498e5e13573f7ef42b2e65cfa29578bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDecals: 38
+  maxDecals: 139
   decalSizeMin: 0.5
   decalSizeMax: 1.5
 --- !u!199 &1371841239

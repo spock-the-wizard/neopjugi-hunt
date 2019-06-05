@@ -8,6 +8,8 @@ public class Fire : MonoBehaviour
     public GameObject Ulti;
     public Transform Firepos;
 
+    GameObject happy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +19,10 @@ public class Fire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
-            Instantiate(Bullet, Firepos.transform.position, Firepos.transform.rotation);
+            happy = Instantiate(Bullet, Firepos.transform.position, Firepos.transform.rotation);
+            happy.transform.SetParent(gameObject.transform);
         }
         
     }

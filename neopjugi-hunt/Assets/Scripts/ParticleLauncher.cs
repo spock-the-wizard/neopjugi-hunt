@@ -43,6 +43,7 @@ public class ParticleLauncher : MonoBehaviour
     void Update()
     {
         particleLauncher.transform.LookAt(character.viewtarget);
+        //particleLauncher.transform.Rotate(character.viewtarget);
         if (Input.GetButton("Fire1"))
         {
             ParticleSystem.MainModule psMain = particleLauncher.main;

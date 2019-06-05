@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 viewtarget;
     private bool jump;
     public Camera main;
+    public GameObject fireball;
 
     Animator m_Animator;
     Rigidbody m_Rigidbody;
@@ -49,9 +50,19 @@ public class PlayerMovement : MonoBehaviour
         View();
         Fly();
         Move();
+        Attack();
         Cam();
     }
-
+    void Attack()
+    {
+        if(Input.GetMouseButtonDown(1))
+        {
+ 
+            GameObject fire =Instantiate(fireball, gameObject.transform.position,gameObject.transform.rotation);
+            fire.GetComponent<Rigidbody>().velocity = new Vector3(1, 0, 0);
+        }
+    }
+  
     void View()
     {
         if (Input.GetKeyDown(KeyCode.V))
@@ -163,12 +174,14 @@ public class PlayerMovement : MonoBehaviour
     }
     void Fly()
     {
-        if (Input.GetButton("Jump"))
+        if (Input.GetKey("space"))
         {
             jump = true;
-           Debug.Log("jumping)");
+            Debug.Log("jumping)");
         }
-        //else
+        else
+            jump = false;
+        //els e
            // jump = false;
         // m_Animator.SetBool("fly", jump);
         float falling_coefficient = 3.0f;
@@ -178,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (m_Rigidbody.GetPointVelocity(new Vector3(0, 0, 0)).y < 3.0f)
                 m_Rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            jump = false;
+            //jump = false;
         }
         else
         {
