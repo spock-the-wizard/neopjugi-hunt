@@ -39,3 +39,20 @@ Update Mode: updateDependencies
 
 The following packages were updated:
   com.unity.textmeshpro from version 2.0.0 to 2.0.1
+
+=== Thu Jun  6 13:36:25 2019
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were added:
+  com.unity.2d.tilemap@1.0.0
+  com.unity.2d.sprite@1.0.0
+  com.unity.ide.vscode@1.0.4
+  com.unity.ide.visualstudio@1.0.10
+  com.unity.ide.rider@1.0.4
+  com.unity.ugui@1.0.0
+  com.unity.modules.androidjni@1.0.0
+The following packages were updated:
+  com.unity.test-framework from version 1.0.12 to 1.0.13
+  com.unity.timeline from version 1.0.0 to 1.1.0

@@ -57,9 +57,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(1))
         {
- 
-            GameObject fire =Instantiate(fireball, gameObject.transform.position,gameObject.transform.rotation);
-            fire.GetComponent<Rigidbody>().velocity = new Vector3(1, 0, 0);
+            float speed=10;
+            Vector3 pos = gameObject.transform.position + new Vector3(0, 2, 0);
+            Vector3 vel = speed * (viewtarget - gameObject.transform.position);
+
+            GameObject fire =Instantiate(fireball,pos,gameObject.transform.rotation);
+            
+            vel.y = 0;
+            fire.GetComponent<Rigidbody>().velocity = vel;
+            //fire.transform.rotation = Quaternion.LookRotation(new Vector3(0, -90, 0));
+            Destroy(fire, 3);
         }
     }
   
@@ -78,10 +85,6 @@ public class PlayerMovement : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(0, x, 0);
 
-        //float horizontal = Input.GetAxis("Horizontal");
-        //float vertical = Input.GetAxis("Vertical");
-        //float horizontal =0;
-
         float increment = 3;
         if (Input.GetKey("w"))
         {
@@ -96,22 +99,15 @@ public class PlayerMovement : MonoBehaviour
         m_Movement = rotation * m_Movement;
         //m_Movement.Normalize();
 
-        //bool hasHorizontalInput = !Mathf.Approximately(horizontal, 0f);
-        //bool hasVerticalInput = !Mathf.Approximately(vertical, 0f);
-        //bool isWalking = hasHorizontalInput || hasVerticalInput;
-        //bool isWalking = Input.GetKey("w");
-
         // m_Animator.SetBool("run", isWalking);
 
-        bool idle;
-        bool isWalking;
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
             m_Animator.Play("attack");
         }
         else
         {
-            if (Input.GetKey("space"))//fly
+            if (jump)//fly
             {
 
                 m_Animator.Play("fly");
@@ -119,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 //if(Input.GetMouseButton(0) || Input.GetMouseButton(1))
-                if (Input.GetKey("w"))
+                if (Input.GetKey("w") || Input.GetKey("s"))
                 {
                     m_Animator.Play("run");
 
@@ -177,13 +173,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey("space"))
         {
             jump = true;
-            Debug.Log("jumping)");
+   
         }
         else
             jump = false;
-        //els e
-           // jump = false;
-        // m_Animator.SetBool("fly", jump);
+       
         float falling_coefficient = 3.0f;
         
         
