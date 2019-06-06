@@ -15,12 +15,17 @@ public class PlayerMovement : MonoBehaviour
     public float vertical = 0;
     public float x = 0.0f;
     public float y = 0.0f;
-    public float dist = -4.0f;
+    public float disty = 4.0f;
+    public float distz = -6.0f;
     public Vector3 viewtarget;
     private bool jump;
     public GameObject neop;
     public Camera main;
     public GameObject fireball;
+    public Time t;
+
+    private bool startgame = false;
+    public CanvasGroup trans;
 
     //Camera main;
     Animator m_Animator;
@@ -51,23 +56,40 @@ public class PlayerMovement : MonoBehaviour
             monster.transform.position = randpos;
         }*/
 
-        m_Animator = GetComponent<Animator> ();
-        m_Rigidbody = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Vector3 angles = transform.eulerAngles;
-        x = angles.y;
-        y = angles.x;
+        
     }
 
     void Update()
     {
-        View();
-        Fly();
-        Cam();
-        Move();
-        Attack();
+        StartGame();
+        if (startgame == true)
+        {
+            View();
+            Fly();
+            Cam();
+            Move();
+            Attack();
+        }
         
     }
+
+    void StartGame()
+    {
+        if(Input.GetKey("space"))
+        {
+            m_Animator = GetComponent<Animator>();
+            m_Rigidbody = GetComponent<Rigidbody>();
+            Cursor.lockState = CursorLockMode.Locked;
+            Vector3 angles = transform.eulerAngles;
+            x = angles.y;
+            y = angles.x;
+            startgame = true;
+
+            trans = GetComponent<CanvasGroup>();
+            trans.alpha = 0;
+        }
+    }
+
     void Attack()
     {
         if(Input.GetMouseButtonDown(1))
@@ -77,16 +99,11 @@ public class PlayerMovement : MonoBehaviour
             //float y_max = 3;
             //float y_min = -5;
             Vector3 temp = m_Rigidbody.position;
-            Vector3 pos = viewtarget + rot * new Vector3(0.0f, 0.0f, 13.0f); ;
+            Vector3 pos = viewtarget + rot * new Vector3(0.0f, 0.0f, 13.0f);
             //viewtarget + new Vector3(0, -2, 0) ;//gameObject.transform.position + new Vector3(0, 2, 0);
             Vector3 vel = speed * (pos - gameObject.transform.position);
                 //speed * (viewtarget - gameObject.transform.position)+(new Vector3(0,-1,0));
-            //if(vel.y>y_max)
-            //{ vel.y = y_max; }
-            /*if(vel.y<y_min)
-            {
-                vel.y = y_min;
-            }*/
+            
 
             GameObject fire =Instantiate(fireball,viewtarget,gameObject.transform.rotation);
             
@@ -102,9 +119,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            dist = -2.0f - dist;
+            disty = 7.0f - disty;
+            distz = -4.0f - distz;
         }
     }
+
     void Move()
     {
         x += Input.GetAxis("Mouse X") * xSpeed * 0.015f;
@@ -128,7 +147,31 @@ public class PlayerMovement : MonoBehaviour
         //m_Movement.Normalize();
 
         // m_Animator.SetBool("run", isWalking);
+        
+        if ((Input.GetKey("w") || Input.GetKey("s")) && m_Rigidbody.position.y <= 1.0f)
+        {
+            m_Animator.Play("run");
+        }
+        else
+        {
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+            {
+                m_Animator.Play("attack");
+            }
+            else
+            {
+                if (jump)//fly
+                {
+                    m_Animator.Play("fly");
+                }
+                else if(m_Rigidbody.position.y <= 0.1f)
+                {
+                    m_Animator.Play("idle");
+                }
+            }
+        }
 
+        /*
         if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
             m_Animator.Play("attack");
@@ -155,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-
+        */
 
         m_Rotation = Quaternion.Euler(0, x, 0);
 
@@ -178,9 +221,9 @@ public class PlayerMovement : MonoBehaviour
         {
             m_Rigidbody.position = new Vector3(m_Rigidbody.position.x, m_Rigidbody.position.y, -40.0f);
         }
-        if (m_Rigidbody.position.y > 10.0f)
+        if (m_Rigidbody.position.y > 20.0f)
         {
-            m_Rigidbody.position = new Vector3(m_Rigidbody.position.x, 10.0f, m_Rigidbody.position.z);
+            m_Rigidbody.position = new Vector3(m_Rigidbody.position.x, 20.0f, m_Rigidbody.position.z);
         }
     }
     void Cam()
@@ -188,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
         Quaternion rot = Quaternion.Euler(y, x, 0);
         viewtarget = m_Rigidbody.position + rot * new Vector3(0.0f, 3.0f, 2.0f);
 
-        Camera.main.transform.position = m_Rigidbody.position + rot * new Vector3(0.0f, 3.0f, dist);
+        Camera.main.transform.position = m_Rigidbody.position + rot * new Vector3(0.0f, disty, distz);
         Camera.main.transform.rotation = rot;
     }
     void OnAnimatorMove()

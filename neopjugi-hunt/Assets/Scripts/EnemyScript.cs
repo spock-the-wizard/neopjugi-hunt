@@ -15,16 +15,16 @@ public class EnemyScript : MonoBehaviour
         if(collision.collider.tag == "ball")
         {
             Debug.Log(collision.collider.tag);
-            Destroy(gameObject, 3);
+            //Destroy(gameObject, 3);
         }
     }
 
-    private void OnParticleCollision(GameObject other)
+/*    private void OnParticleCollision(GameObject other)
     {
         if(other.tag =="Bullet")
-        Destroy(gameObject, 2);
+        Destroy(other.gameObject, 2);
     }
-    // Update is called once per frame
+*/    // Update is called once per frame
     void Update()
     {
         

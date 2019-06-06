@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public int hp = 5;
+    public int hp = 50;
     public int move;
     public int dir;
     public float speed = 0.05f;
-    
+
+    public ParticleSystem _psystem;
+
     Rigidbody m_Rigidbody;
     Vector3 m_Movement;
     Animator m_Animator;
@@ -16,11 +18,44 @@ public class EnemyMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.collider.tag == "Bullet")
+        Debug.Log(col.collider.tag);
+        if (col.collider.tag == "ball")
+        {
+            hp-=10;
+            
+            if (_psystem)
+            {
+                if (_psystem.isPlaying)
+                {
+                    _psystem.Stop();
+                    _psystem.Clear();
+                    _psystem.Play();
+                }
+                else
+                {
+                    _psystem.Play();
+                }
+            }
+            else
+            {
+                Vector3 pos = Vector3.zero;
+                pos.y = 3.0f;
+
+                Transform particleObject = (Transform)Instantiate(Resources.Load("Assets/ExplosiveRealFree/Example/Explosion.prefab", typeof(Transform)), pos, Quaternion.identity);
+                _psystem = (ParticleSystem)particleObject.GetComponent(typeof(ParticleSystem));
+            }
+            if (hp <= 0) Destroy(gameObject);
+            Destroy(col.gameObject, 5);
+        }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+
+        if (other.tag == "Bullet")
         {
             hp--;
-            if (hp == 0) Destroy(gameObject);
-            Destroy(col.gameObject);
+            if (hp <= 0) Destroy(gameObject);
         }
     }
 
@@ -32,12 +67,15 @@ public class EnemyMovement : MonoBehaviour
         dir = Random.Range(0, 4);
         move = 0;
         m_Animator.SetBool("IsWalking", true);
+        _psystem.Stop();
+        _psystem.Clear();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(move >= 100)
+        
+        if (move >= 100)
         {
             dir = Random.Range(0, 4);
             move = 0;
