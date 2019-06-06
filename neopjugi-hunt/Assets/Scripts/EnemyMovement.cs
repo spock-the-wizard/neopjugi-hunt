@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
         if (col.collider.tag == "Bullet")
         {
             hp--;
-            if (hp == 0) Destroy(this.gameObject);
+            if (hp == 0) Destroy(gameObject);
             Destroy(col.gameObject);
         }
     }

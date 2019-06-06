@@ -20,12 +20,18 @@ public class ParticleLauncher : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEvents);
-
-        for (int i = 0; i < collisionEvents.Count; i++)
+        Debug.Log(other.tag);
+        if (other.tag != "Player")
         {
-            splatDecalPool.ParticleHit(collisionEvents[i], particleColorGradient);
-            EmitAtLocation(collisionEvents[i]);
+            ParticlePhysicsExtensions.GetCollisionEvents(particleLauncher, other, collisionEvents);
+
+            for (int i = 0; i < collisionEvents.Count; i++)
+            {
+
+                splatDecalPool.ParticleHit(collisionEvents[i], particleColorGradient);
+                EmitAtLocation(collisionEvents[i]);
+
+            }
         }
 
     }

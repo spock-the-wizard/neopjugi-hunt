@@ -18,13 +18,20 @@ public class PlayerMovement : MonoBehaviour
     public float dist = -4.0f;
     public Vector3 viewtarget;
     private bool jump;
+    public GameObject neop;
     public Camera main;
     public GameObject fireball;
 
+    //Camera main;
     Animator m_Animator;
     Rigidbody m_Rigidbody;
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
+    
+    int neop_num = 5;
+    Vector3 minpos = new Vector3(-10,0,-10);
+    Vector3 maxpos = new Vector3(10, 0, 100);
+    
 
     float ClampAngle(float angle, float min, float max)
     {
@@ -32,11 +39,18 @@ public class PlayerMovement : MonoBehaviour
         if (angle > 360) angle -= 360;
 
         return Mathf.Clamp(angle, min, max);
+
     }
 
     void Start()
     {
-        
+        /*for(int i=0;i<neop_num;i++)
+        {
+            Vector3 randpos = new Vector3(Random.Range(minpos.x, maxpos.x), Random.Range(minpos.y, maxpos.y), Random.Range(minpos.z, maxpos.z));
+            GameObject monster = Instantiate(neop);
+            monster.transform.position = randpos;
+        }*/
+
         m_Animator = GetComponent<Animator> ();
         m_Rigidbody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
@@ -49,24 +63,38 @@ public class PlayerMovement : MonoBehaviour
     {
         View();
         Fly();
+        Cam();
         Move();
         Attack();
-        Cam();
+        
     }
     void Attack()
     {
         if(Input.GetMouseButtonDown(1))
         {
-            float speed=10;
-            Vector3 pos = gameObject.transform.position + new Vector3(0, 2, 0);
-            Vector3 vel = speed * (viewtarget - gameObject.transform.position);
+            float speed=1;
+            Quaternion rot = Quaternion.Euler(y, x, 0);
+            //float y_max = 3;
+            //float y_min = -5;
+            Vector3 temp = m_Rigidbody.position;
+            Vector3 pos = viewtarget + rot * new Vector3(0.0f, 0.0f, 13.0f); ;
+            //viewtarget + new Vector3(0, -2, 0) ;//gameObject.transform.position + new Vector3(0, 2, 0);
+            Vector3 vel = speed * (pos - gameObject.transform.position);
+                //speed * (viewtarget - gameObject.transform.position)+(new Vector3(0,-1,0));
+            //if(vel.y>y_max)
+            //{ vel.y = y_max; }
+            /*if(vel.y<y_min)
+            {
+                vel.y = y_min;
+            }*/
 
-            GameObject fire =Instantiate(fireball,pos,gameObject.transform.rotation);
+            GameObject fire =Instantiate(fireball,viewtarget,gameObject.transform.rotation);
             
-            vel.y = 0;
+            //vel.y = 0;
             fire.GetComponent<Rigidbody>().velocity = vel;
+            fire.GetComponent<Rigidbody>().rotation = Quaternion.LookRotation(vel);
             //fire.transform.rotation = Quaternion.LookRotation(new Vector3(0, -90, 0));
-            Destroy(fire, 3);
+            Destroy(fire, 5);
         }
     }
   
@@ -172,8 +200,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey("space"))
         {
-            jump = true;
-   
+            jump = true;   
         }
         else
             jump = false;
